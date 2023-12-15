@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.find.mapper.mysql.Mysql">
+    <select id="selectUCIDList">
+        select rec_key, ext, rec_date from rec_retry where ta_proc_flag = 'R' and rec_proc_flag is null
+    </select>
+
+    <update id="updateFindStatus">
+        update rec_retry set rec_proc_flag = 'D', rec_proc_dt = now() where rec_key = #{ucid} and ext = #{ext} and rec_date = #{recDate}
+    </update>
+</mapper>

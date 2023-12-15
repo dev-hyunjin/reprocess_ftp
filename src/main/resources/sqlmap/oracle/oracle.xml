@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.find.mapper.oracle.Oracle">
+    <select id="selectRecordInfo" resultType="map">
+        SELECT REC_SEQ, REC_DATE, TO_CHAR(REC_START_TIME, 'YYYY-MM-DD HH24:MI:SS') AS REC_START_TIME, TO_CHAR(REC_END_TIME, 'YYYY-MM-DD HH24:MI:SS') AS REC_END_TIME,
+               TO_CHAR(REC_START_TIME, 'HH24') AS REC_START_TIME_FOLDER, LOCAL_NO, TRUNC(ROUND((REC_END_TIME - REC_START_TIME) * 24 * 60 * 60)) AS REC_ELAPSE_TIME,
+               TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') AS CURRENT_TIME, REC_KEYCODE, REC_INOUT, REC_FILENAME, USER_ID, USER_NAME, CUST_TEL, CUSTOM_FLD_08
+        FROM TBL_RECORD
+        WHERE (CUSTOM_FLD_08 = #{ucid} OR REC_KEYCODE = #{ucid}) AND LOCAL_NO = #{localNo} AND REC_DATE = #{recDate} AND REC_MODE = #{recMode} AND BPART_CODE = #{bpartCode}
+    </select>
+</mapper>
